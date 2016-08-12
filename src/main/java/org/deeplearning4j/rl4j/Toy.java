@@ -23,7 +23,6 @@ import static org.deeplearning4j.rl4j.Cartpole.CARTPOLE_NET;
 public class Toy {
 
 
-
     public static QLearning.QLConfiguration TOY_QL =
             new QLearning.QLConfiguration(
                     123, //seed

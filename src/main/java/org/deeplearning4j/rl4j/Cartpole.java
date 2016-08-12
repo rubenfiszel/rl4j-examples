@@ -45,21 +45,45 @@ public class Cartpole
     }
 
     public static void cartPole() {
+
+        //true means record this in rl4j-data in a new folder
         DataManager manager = new DataManager(true);
+
+        //define the mdp from gym (name, render)
         GymEnv mdp = new GymEnv("CartPole-v0", false);
+
+        //define the training
         QLearningDiscreteDense<Box> dql = new QLearningDiscreteDense(mdp, CARTPOLE_NET, CARTPOLE_QL, manager);
+
+        //train
         dql.train();
+
+        //get the final policy
         DQNPolicy<Box> pol = dql.getPolicy();
+
+        //serialize and save (serialization showcase, but not required)
         pol.save("/tmp/pol1");
+
+        //close the mdp (close http)
         mdp.close();
 
+        //showcase serialization by using the trained agent on a new similar mdp (but render it this time)
         GymEnv mdp2 = new GymEnv("CartPole-v0", true);
+
+        //load the previous agent
         DQNPolicy<Box> pol2 = DQNPolicy.load("/tmp/pol1");
-        while(true){
+
+
+        //evaluate the agent
+        double rewards = 0;
+        for (int i = 0; i < 1000; i++) {
             mdp.reset();
             double reward = pol.play(mdp2);
+            rewards += reward;
             Logger.getAnonymousLogger().info("Reward: " + reward);
         }
+
+        Logger.getAnonymousLogger().info("average: " + rewards/1000);
 
 
     }
