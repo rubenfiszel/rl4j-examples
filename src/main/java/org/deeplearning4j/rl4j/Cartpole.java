@@ -12,6 +12,8 @@ import org.deeplearning4j.rl4j.policy.Policy;
 import org.deeplearning4j.rl4j.space.DiscreteSpace;
 import org.deeplearning4j.rl4j.util.DataManager;
 
+import java.util.logging.Logger;
+
 
 public class Cartpole
 {
@@ -21,8 +23,8 @@ public class Cartpole
             new QLearning.QLConfiguration(
                     123,
                     500,
-                    50000,
-                    50000,
+                    150000,
+                    150000,
                     32,
                     100,
                     1000,
@@ -56,7 +58,7 @@ public class Cartpole
         while(true){
             mdp.reset();
             double reward = pol.play(mdp2);
-            System.out.println(reward);
+            Logger.getAnonymousLogger().info("Reward: " + reward);
         }
 
 
