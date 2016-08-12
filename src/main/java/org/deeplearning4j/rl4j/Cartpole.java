@@ -21,8 +21,8 @@ public class Cartpole
             new QLearning.QLConfiguration(
                     123,
                     500,
-                    150000,
-                    100000,
+                    50000,
+                    50000,
                     32,
                     100,
                     1000,
@@ -34,7 +34,7 @@ public class Cartpole
             );
 
     public static DQNFactoryStdDense.Configuration CARTPOLE_NET =
-            new DQNFactoryStdDense.Configuration(4, 0.001, 0.001,  0.99);
+            new DQNFactoryStdDense.Configuration(3, 0.001, 0.000,  0.99);
 
     public static void main( String[] args )
     {
@@ -45,13 +45,20 @@ public class Cartpole
     public static void cartPole() {
         DataManager manager = new DataManager(true);
         GymEnv mdp = new GymEnv("CartPole-v0", false);
-        ILearning<Box, Integer, DiscreteSpace> dql = new QLearningDiscreteDense(mdp, CARTPOLE_NET, CARTPOLE_QL, manager);
+        QLearningDiscreteDense<Box> dql = new QLearningDiscreteDense(mdp, CARTPOLE_NET, CARTPOLE_QL, manager);
         dql.train();
-        Policy<Box, Integer> pol = dql.getPolicy();
+        DQNPolicy<Box> pol = dql.getPolicy();
+        pol.save("/tmp/pol1");
+        mdp.close();
+
+        GymEnv mdp2 = new GymEnv("CartPole-v0", true);
+        DQNPolicy<Box> pol2 = DQNPolicy.load("/tmp/pol1");
         while(true){
             mdp.reset();
-            pol.play(mdp);
+            double reward = pol.play(mdp2);
+            System.out.println(reward);
         }
+
 
     }
 
