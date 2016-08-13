@@ -11,7 +11,7 @@ import org.nd4j.linalg.factory.Nd4j;
  */
 public class Compression {
 
-    public static int EXP_REPLAY_SIZE = 1000000;
+    public static int EXP_REPLAY_SIZE = 300000;
     public static int SIZE = 100;
 
     public static void main( String[] args )
@@ -29,6 +29,7 @@ public class Compression {
         for (int i = 0; i < EXP_REPLAY_SIZE; i++) {
             INDArray random = Nd4j.rand(new int[]{SIZE*2, SIZE*2, 3});
             if (i > 4) {
+		System.out.println(i);
                 INDArray[] nhistory = hp.getHistory();
                 hp.add(random);
                 er.store(new Transition<Integer>(history, 0, 0, false, nhistory));

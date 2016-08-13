@@ -36,7 +36,7 @@ public class Cartpole
             );
 
     public static DQNFactoryStdDense.Configuration CARTPOLE_NET =
-            new DQNFactoryStdDense.Configuration(3, 0.001, 0.000,  0.99);
+            new DQNFactoryStdDense.Configuration(3, 0.001, 0.00001,  0.99);
 
     public static void main( String[] args )
     {
