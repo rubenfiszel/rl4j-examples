@@ -4,6 +4,7 @@ import org.deeplearning4j.rl4j.learning.HistoryProcessor;
 import org.deeplearning4j.rl4j.learning.ILearning;
 import org.deeplearning4j.rl4j.learning.sync.qlearning.QLearning;
 import org.deeplearning4j.rl4j.learning.sync.qlearning.discrete.QLearningDiscreteConv;
+import org.deeplearning4j.rl4j.learning.sync.qlearning.discrete.QLearningDiscreteDense;
 import org.deeplearning4j.rl4j.mdp.vizdoom.DeadlyCorridor;
 import org.deeplearning4j.rl4j.mdp.vizdoom.VizDoom;
 import org.deeplearning4j.rl4j.network.dqn.DQNFactoryStdConv;
@@ -50,10 +51,10 @@ public class Doom {
         //int[] actions = new int[]{0, 10, 11, 12};
         //GymEnv mdp = new GymEnv("DoomBasic-v0", true, actions);
         DataManager manager = new DataManager(true);
-        VizDoom mdp = new DeadlyCorridor(true);
-        ILearning<VizDoom.GameScreen, Integer, DiscreteSpace> dql = new QLearningDiscreteConv(mdp, DOOM_NET, DOOM_HP, DOOM_QL, manager);
+        VizDoom mdp = new DeadlyCorridor(false);
+        QLearningDiscreteConv<VizDoom.GameScreen> dql = new QLearningDiscreteConv(mdp, DOOM_NET, DOOM_HP, DOOM_QL, manager);
         dql.train();
-        dql.getPolicy();
+        dql.getPolicy().save("end.model");
         mdp.close();
     }
 }
