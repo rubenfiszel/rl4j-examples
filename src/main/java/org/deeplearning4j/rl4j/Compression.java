@@ -1,5 +1,6 @@
 package org.deeplearning4j.rl4j;
 
+import org.bytedeco.javacpp.Pointer;
 import org.deeplearning4j.rl4j.learning.HistoryProcessor;
 import org.deeplearning4j.rl4j.learning.sync.ExpReplay;
 import org.deeplearning4j.rl4j.learning.sync.Transition;
@@ -29,7 +30,8 @@ public class Compression {
         for (int i = 0; i < EXP_REPLAY_SIZE; i++) {
             INDArray random = Nd4j.rand(new int[]{SIZE*2, SIZE*2, 3});
             if (i > 4) {
-		System.out.println(i);
+		        System.out.println(i);
+                System.out.println(Pointer.totalBytes());
                 INDArray[] nhistory = hp.getHistory();
                 hp.add(random);
                 er.store(new Transition<Integer>(history, 0, 0, false, nhistory));

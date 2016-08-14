@@ -20,39 +20,24 @@ public class Doom {
     public static QLearning.QLConfiguration DOOM_QL =
             new QLearning.QLConfiguration(
                     123, //seed
-                    100000, //maxEpochStep
-                    80000000, //maxStep
+                    10000, //maxEpochStep
+                    8000000, //maxStep
                     1000000, //expRepMaxSize
                     32, //batchSize
-                    10000, //targetDqnUpdateFreq
+                    1000, //targetDqnUpdateFreq
                     50000, //updateStart
                     0.99, //gamma
-                    2.0, //errorClamp
+                    100.0, //errorClamp
                     0.1f, //minEpsilon
-                    1f / 200000f, //epsilonDecreaseRate
+                    1f / 1000000f, //epsilonDecreaseRate
                     true //doubleDQN
             );
-/*
-    int seed;
-    int maxStep;
-    int maxEpoch;
-    int expRepMinSize;
-    int expRepMaxSize;
-    int batchSize;
-    int targetDqnUpdateFreq;
-    int updateStart;
 
-    double gamma;
-    double errorClamp;
-    float minEpsilon;
-    float epsilonDecreaseRate;
-    boolean doubleDQN;
-    */
     
 
 
     public static DQNFactoryStdConv.Configuration DOOM_NET =
-            new DQNFactoryStdConv.Configuration(0.001, 0.001, 0.99);
+            new DQNFactoryStdConv.Configuration(0.00025, 0.000, 0.99);
 
     public static HistoryProcessor.Configuration DOOM_HP =
             new HistoryProcessor.Configuration(4, 128, 128, 128, 128, 0, 0, 4);
