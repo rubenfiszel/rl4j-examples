@@ -87,6 +87,17 @@ public class Compression {
 
         //Print Maximum available memory
         System.out.println("Max Memory:" + runtime.maxMemory() / mb);
+
+        System.out.println("##### Poiinter utilization statistics [MB] #####");
+
+        //Print used memory
+        System.out.println("Used Memory:"
+                + (Pointer.totalBytes()) / mb);
+
+        //Print Maximum available memory
+        System.out.println("Max Memory:" + Pointer.maxBytes() / mb);
+
+
     }
 
 
