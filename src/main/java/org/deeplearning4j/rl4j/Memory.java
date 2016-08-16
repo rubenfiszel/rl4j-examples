@@ -25,7 +25,7 @@ public class Memory {
             new QLearning.QLConfiguration(
                     123, //seed
                     10000, //maxEpochStep
-                    1000, //maxStep
+                    1000000, //maxStep
                     1000000, //expRepMaxSize
                     32, //batchSize
                     1000, //targetDqnUpdateFreq

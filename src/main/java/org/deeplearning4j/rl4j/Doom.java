@@ -48,8 +48,9 @@ public class Doom {
     }
 
     public static void doomBasicQL() {
-        //int[] actions = new int[]{0, 10, 11, 12};
-        //GymEnv mdp = new GymEnv("DoomBasic-v0", true, actions);
+
+        Compression.printMemory();
+        
         DataManager manager = new DataManager(true);
         VizDoom mdp = new DeadlyCorridor(false);
         QLearningDiscreteConv<VizDoom.GameScreen> dql = new QLearningDiscreteConv(mdp, DOOM_NET, DOOM_HP, DOOM_QL, manager);

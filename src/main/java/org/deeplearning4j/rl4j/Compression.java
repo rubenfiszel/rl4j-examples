@@ -14,7 +14,7 @@ public class Compression {
 
     public static int EXP_REPLAY_SIZE = 300000;
     public static int SIZE = 100;
-    public static int RUN_LIMIT= 2000;
+    public static int RUN_LIMIT= 20000;
 
     public static void main( String[] args )
     {
