@@ -14,10 +14,30 @@ public class Compression {
 
     public static int EXP_REPLAY_SIZE = 300000;
     public static int SIZE = 100;
+    public static int RUN_LIMIT= 2000;
 
     public static void main( String[] args )
     {
-        compressionTest();
+        printMemory();
+        memoryTest();
+        printMemory();
+    }
+
+    public static void memoryTest(){
+
+        for (int i = 0; i < RUN_LIMIT; i++) {
+            if (i % 1 == 0) {
+                System.gc();
+                System.out.println("Iteration " + i + " passed, Mem: " + (Pointer.totalBytes() / 1024 / 1024));
+            }
+            INDArray arrays[] = new INDArray[4];
+            for (int x = 0; x< 4; x++)
+                arrays[x] = Nd4j.rand(new int[]{1, 100, 100});
+
+            INDArray result = Nd4j.concat(0, arrays);
+            result.muli(1/256f);
+
+        }
 
     }
 
