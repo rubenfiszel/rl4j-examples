@@ -41,7 +41,7 @@ public class Doom {
             new DQNFactoryStdConv.Configuration(0.00025, 0.000, 0.99);
 
     public static HistoryProcessor.Configuration DOOM_HP =
-            new HistoryProcessor.Configuration(4, 128, 128, 128, 128, 0, 0, 4);
+            new HistoryProcessor.Configuration(4, 84, 84, 84, 84, 0, 0, 4);
 
     public static void main(String[] args) {
         doomBasicQL();
@@ -50,7 +50,7 @@ public class Doom {
     public static void doomBasicQL() {
 
         Compression.printMemory();
-        
+
         DataManager manager = new DataManager(true);
         VizDoom mdp = new DeadlyCorridor(false);
         QLearningDiscreteConv<VizDoom.GameScreen> dql = new QLearningDiscreteConv(mdp, DOOM_NET, DOOM_HP, DOOM_QL, manager);
