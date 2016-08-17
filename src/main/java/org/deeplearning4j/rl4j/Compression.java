@@ -54,7 +54,7 @@ public class Compression {
                 System.gc();
                 INDArray[] nhistory = hp.getHistory();
                 hp.add(random);
-                er.store(new Transition<Integer>(history, 0, 0, false, nhistory));
+                er.store(new Transition<Integer>(history, 0, 0, false, nhistory[0]));
                 history = nhistory;
             } else {
                 if (i == 4)
