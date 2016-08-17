@@ -6,6 +6,7 @@ import org.deeplearning4j.rl4j.learning.sync.qlearning.QLearning;
 import org.deeplearning4j.rl4j.learning.sync.qlearning.discrete.QLearningDiscreteConv;
 import org.deeplearning4j.rl4j.learning.sync.qlearning.discrete.QLearningDiscreteDense;
 import org.deeplearning4j.rl4j.mdp.vizdoom.DeadlyCorridor;
+import org.deeplearning4j.rl4j.mdp.vizdoom.TakeCover;
 import org.deeplearning4j.rl4j.mdp.vizdoom.VizDoom;
 import org.deeplearning4j.rl4j.network.dqn.DQNFactoryStdConv;
 import org.deeplearning4j.rl4j.space.DiscreteSpace;
@@ -41,7 +42,7 @@ public class Doom {
             new DQNFactoryStdConv.Configuration(0.00025, 0.000, 0.99);
 
     public static HistoryProcessor.Configuration DOOM_HP =
-            new HistoryProcessor.Configuration(4, 84, 84, 84, 84, 0, 0, 4);
+            new HistoryProcessor.Configuration(4, 84, 84, 84, 84 , 0, 0, 4);
 
     public static void main(String[] args) {
         doomBasicQL();
@@ -52,7 +53,7 @@ public class Doom {
         Compression.printMemory();
 
         DataManager manager = new DataManager(true);
-        VizDoom mdp = new DeadlyCorridor(false);
+        VizDoom mdp = new TakeCover(false);
         QLearningDiscreteConv<VizDoom.GameScreen> dql = new QLearningDiscreteConv(mdp, DOOM_NET, DOOM_HP, DOOM_QL, manager);
         dql.train();
         dql.getPolicy().save("end.model");
