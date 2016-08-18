@@ -54,7 +54,7 @@ public class Doom {
         Compression.printMemory();
 
         DataManager manager = new DataManager(true);
-        VizDoom mdp = new DeadlyCorridor(false);
+        VizDoom mdp = new DeadlyCorridor(true);
         QLearningDiscreteConv<VizDoom.GameScreen> dql = new QLearningDiscreteConv(mdp, DOOM_NET, DOOM_HP, DOOM_QL, manager);
         dql.train();
         dql.getPolicy().save("end.model");
