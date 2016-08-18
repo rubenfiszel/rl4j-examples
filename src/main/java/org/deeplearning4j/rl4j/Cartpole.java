@@ -65,7 +65,7 @@ public class Cartpole
         mdp.close();
 
         //showcase serialization by using the trained agent on a new similar mdp (but render it this time)
-        GymEnv mdp2 = new GymEnv("CartPole-v0", true, false);
+        GymEnv mdp2 = new GymEnv("CartPole-v0", false, false);
 
         //load the previous agent
         DQNPolicy<Box> pol2 = DQNPolicy.load("/tmp/pol1");
@@ -74,8 +74,8 @@ public class Cartpole
         //evaluate the agent
         double rewards = 0;
         for (int i = 0; i < 1000; i++) {
-            mdp.reset();
-            double reward = pol.play(mdp2);
+            mdp2.reset();
+            double reward = pol2.play(mdp2);
             rewards += reward;
             Logger.getAnonymousLogger().info("Reward: " + reward);
         }

@@ -40,11 +40,11 @@ public class Toy {
             );
 
     public static DQNFactoryStdDense.Configuration TOY_NET =
-            new DQNFactoryStdDense.Configuration(4, 40, 0.001, 0.01, 0.99);
+            new DQNFactoryStdDense.Configuration(4, 15, 0.001, 0.01, 0.99);
 
     public static void main( String[] args )
     {
-        //cartPole();
+        simpleToy();
 
     }
 
