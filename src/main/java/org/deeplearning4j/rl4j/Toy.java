@@ -50,7 +50,7 @@ public class Toy {
 
     public static void simpleToy() {
         DataManager manager = new DataManager();
-        SimpleToy mdp = new SimpleToy(Constants.SIMPLE_TOY_LENGTH);
+        SimpleToy mdp = new SimpleToy(20);
         ILearning<SimpleToyState, Integer, DiscreteSpace> dql = new QLearningDiscreteDense(mdp, TOY_NET, TOY_QL, manager);
         dql.train();
         dql.getPolicy();
@@ -70,7 +70,7 @@ public class Toy {
     public static void cartPoleAsync() {
         DataManager manager = new DataManager();
         //GymEnv mdp = new GymEnv("CartPole-v0",  false);
-        SimpleToy mdp = new SimpleToy(Constants.SIMPLE_TOY_LENGTH);
+        SimpleToy mdp = new SimpleToy(20);
         ILearning<SimpleToyState, Integer, DiscreteSpace> dql = new NStepQLearningDiscreteDense<SimpleToyState>(mdp, CARTPOLE_NET, new AsyncLearning.AsyncConfiguration(), manager);
         dql.train();
         dql.getPolicy();

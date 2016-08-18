@@ -2,16 +2,9 @@ package org.deeplearning4j.rl4j;
 
 import org.deeplearning4j.rl4j.gym.space.Box;
 import org.deeplearning4j.rl4j.learning.async.AsyncLearning;
-import org.deeplearning4j.rl4j.learning.async.nstep.discrete.NStepQLearningDiscrete;
 import org.deeplearning4j.rl4j.learning.async.nstep.discrete.NStepQLearningDiscreteDense;
-import org.deeplearning4j.rl4j.learning.sync.qlearning.QLearning;
-import org.deeplearning4j.rl4j.learning.sync.qlearning.discrete.QLearningDiscreteDense;
 import org.deeplearning4j.rl4j.mdp.gym.GymEnv;
-import org.deeplearning4j.rl4j.network.dqn.DQNFactoryStdDense;
-import org.deeplearning4j.rl4j.policy.DQNPolicy;
 import org.deeplearning4j.rl4j.util.DataManager;
-
-import java.util.logging.Logger;
 
 import static org.deeplearning4j.rl4j.Cartpole.CARTPOLE_NET;
 
@@ -50,7 +43,7 @@ public class AsyncNStepCartpole {
         DataManager manager = new DataManager(true);
 
         //define the mdp from gym (name, render)
-        GymEnv mdp = new GymEnv("CartPole-v0", false);
+        GymEnv mdp = new GymEnv("CartPole-v0", false, false);
 
         //define the training
         NStepQLearningDiscreteDense<Box> dql = new NStepQLearningDiscreteDense<Box>(mdp, CARTPOLE_NET, CARTPOLE_A3C, manager);

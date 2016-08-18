@@ -2,14 +2,11 @@ package org.deeplearning4j.rl4j;
 
 
 import org.deeplearning4j.rl4j.gym.space.Box;
-import org.deeplearning4j.rl4j.learning.ILearning;
 import org.deeplearning4j.rl4j.learning.sync.qlearning.QLearning;
 import org.deeplearning4j.rl4j.learning.sync.qlearning.discrete.QLearningDiscreteDense;
 import org.deeplearning4j.rl4j.mdp.gym.GymEnv;
 import org.deeplearning4j.rl4j.network.dqn.DQNFactoryStdDense;
 import org.deeplearning4j.rl4j.policy.DQNPolicy;
-import org.deeplearning4j.rl4j.policy.Policy;
-import org.deeplearning4j.rl4j.space.DiscreteSpace;
 import org.deeplearning4j.rl4j.util.DataManager;
 
 import java.util.logging.Logger;
@@ -36,7 +33,7 @@ public class Cartpole
             );
 
     public static DQNFactoryStdDense.Configuration CARTPOLE_NET =
-            new DQNFactoryStdDense.Configuration(3, 40, 0.001, 0.00001, 0.99);
+            new DQNFactoryStdDense.Configuration(3, 16, 0.001, 0.00, 0.99);
 
     public static void main( String[] args )
     {
@@ -50,7 +47,7 @@ public class Cartpole
         DataManager manager = new DataManager(true);
 
         //define the mdp from gym (name, render)
-        GymEnv mdp = new GymEnv("CartPole-v0", false);
+        GymEnv mdp = new GymEnv("CartPole-v0", false, false);
 
         //define the training
         QLearningDiscreteDense<Box> dql = new QLearningDiscreteDense(mdp, CARTPOLE_NET, CARTPOLE_QL, manager);
@@ -68,7 +65,7 @@ public class Cartpole
         mdp.close();
 
         //showcase serialization by using the trained agent on a new similar mdp (but render it this time)
-        GymEnv mdp2 = new GymEnv("CartPole-v0", true);
+        GymEnv mdp2 = new GymEnv("CartPole-v0", true, false);
 
         //load the previous agent
         DQNPolicy<Box> pol2 = DQNPolicy.load("/tmp/pol1");

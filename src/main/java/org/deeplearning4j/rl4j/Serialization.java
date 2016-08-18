@@ -9,8 +9,6 @@ import org.deeplearning4j.rl4j.network.dqn.IDQN;
 import org.deeplearning4j.rl4j.util.Constants;
 import org.deeplearning4j.rl4j.util.DataManager;
 
-import static org.deeplearning4j.rl4j.Cartpole.CARTPOLE_NET;
-import static org.deeplearning4j.rl4j.Cartpole.CARTPOLE_QL;
 import static org.deeplearning4j.rl4j.Toy.TOY_NET;
 import static org.deeplearning4j.rl4j.Toy.TOY_QL;
 
@@ -26,7 +24,7 @@ public class Serialization {
 
     public static void serialization() {
 
-        SimpleToy mdp = new SimpleToy(Constants.SIMPLE_TOY_LENGTH);
+        SimpleToy mdp = new SimpleToy(20);
         DataManager manager = new DataManager();
         QLearningDiscreteDense<SimpleToyState> dql = new QLearningDiscreteDense(mdp, TOY_NET, TOY_QL, manager);
 
