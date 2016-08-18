@@ -19,7 +19,7 @@ public class Compression {
     public static void main( String[] args )
     {
         printMemory();
-        memoryTest();
+        compressionTest();
         printMemory();
     }
 
@@ -50,8 +50,8 @@ public class Compression {
         for (int i = 0; i < EXP_REPLAY_SIZE; i++) {
             INDArray random = Nd4j.rand(new int[]{SIZE*2, SIZE*2, 3});
             if (i > 4) {
-                System.out.println(i + ": " + (Pointer.totalBytes() / (1024*1024)));
                 System.gc();
+                System.out.println(i + ": " + (Pointer.totalBytes() / 1024));
                 INDArray[] nhistory = hp.getHistory();
                 hp.add(random);
                 er.store(new Transition<Integer>(history, 0, 0, false, nhistory[0]));
