@@ -22,7 +22,7 @@ public class Doom {
                     8000000, //maxStep
                     1000000, //expRepMaxSize
                     32, //batchSize
-                    1000, //targetDqnUpdateFreq
+                    10000, //targetDqnUpdateFreq
                     50000, //updateStart
                     0.99, //gamma
                     100.0, //errorClamp
