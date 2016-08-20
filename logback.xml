@@ -1,0 +1,14 @@
+<configuration>
+    <appender class="ch.qos.logback.core.ConsoleAppender" name="STDOUT">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%-30(%d [%thread]) %-5level %logger{16} - %replace(%msg){'\n','|'} %xEx%n</pattern>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT">
+        </appender-ref></root>
+
+    <logger level="TRACE" name="com.googlecode.log.pretty">
+    </logger>
+</configuration>

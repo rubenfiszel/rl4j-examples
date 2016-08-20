@@ -42,20 +42,35 @@ public class Toy {
                     true //doubleDQN
             );
 
+    public static AsyncLearning.AsyncConfiguration TOY_ASYNC_QL =
+            new AsyncLearning.AsyncConfiguration(
+                    123, //seed
+                    100000, //maxEpochStep
+                    80000, //maxStep
+                    8,
+                    10, //batchSize
+                    0.99, //gamma
+                    100,
+                    100, //errorClamp
+                    10f,
+                    0.1f, //minEpsilon
+                    1f / 2000f //epsilonDecreaseRate
+            );
+
     public static DQNFactoryStdDense.Configuration TOY_NET =
             new DQNFactoryStdDense.Configuration(4, 15, 0.01, 0.00, 0.99);
 
     public static void main( String[] args )
     {
-        simpleToy();
-       // cartPoleAsync();
+        //simpleToy();
+        toyAsync();
 
     }
 
     public static void simpleToy() {
         DataManager manager = new DataManager();
         SimpleToy mdp = new SimpleToy(20);
-        Learning<SimpleToyState, Integer, DiscreteSpace, IDQN> dql = new QLearningDiscreteDense(mdp, TOY_NET, TOY_QL, manager);
+        Learning<SimpleToyState, Integer, DiscreteSpace, IDQN> dql = new QLearningDiscreteDense<SimpleToyState>(mdp, TOY_NET, TOY_QL, manager);
         mdp.setFetchable(dql);
         dql.train();
         dql.getPolicy();
@@ -72,11 +87,11 @@ public class Toy {
     }
 
 
-    public static void cartPoleAsync() {
+    public static void toyAsync() {
         DataManager manager = new DataManager();
         //GymEnv mdp = new GymEnv("CartPole-v0",  false);
         SimpleToy mdp = new SimpleToy(20);
-        NStepQLearningDiscreteDense dql = new NStepQLearningDiscreteDense<SimpleToyState>(mdp, CARTPOLE_NET, CARTPOLE_A3C, manager);
+        NStepQLearningDiscreteDense dql = new NStepQLearningDiscreteDense<SimpleToyState>(mdp, TOY_NET, TOY_ASYNC_QL, manager);
         mdp.setFetchable(dql);
         dql.train();
         dql.getPolicy();

@@ -23,21 +23,22 @@ public class Cartpole
                     150000,
                     150000,
                     32,
-                    100,
-                    1000,
+                    10000,
+                    5000,
                     0.99,
                     100.0,
-                    0.0f,
-                    1f / 40000f,
+                    0.05f,
+                    1f / 10000f,
                     true
             );
 
     public static DQNFactoryStdDense.Configuration CARTPOLE_NET =
-            new DQNFactoryStdDense.Configuration(3, 16, 0.001, 0.00, 0.99);
+            new DQNFactoryStdDense.Configuration(3, 30, 0.001, 0.00, 0.99);
 
     public static void main( String[] args )
     {
         cartPole();
+        //loadCartpole();
 
     }
 
@@ -64,8 +65,14 @@ public class Cartpole
         //close the mdp (close http)
         mdp.close();
 
+
+    }
+
+
+    public static void loadCartpole(){
+
         //showcase serialization by using the trained agent on a new similar mdp (but render it this time)
-        GymEnv mdp2 = new GymEnv("CartPole-v0", false, false);
+        GymEnv mdp2 = new GymEnv("CartPole-v0", true, false);
 
         //load the previous agent
         DQNPolicy<Box> pol2 = DQNPolicy.load("/tmp/pol1");
@@ -82,8 +89,5 @@ public class Cartpole
 
         Logger.getAnonymousLogger().info("average: " + rewards/1000);
 
-
     }
-
-
 }
