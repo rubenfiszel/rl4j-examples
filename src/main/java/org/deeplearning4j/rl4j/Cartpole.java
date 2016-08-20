@@ -23,17 +23,17 @@ public class Cartpole
                     150000,
                     150000,
                     32,
-                    10000,
-                    5000,
+                    10,
+                    10,
                     0.99,
                     100.0,
                     0.05f,
-                    1f / 10000f,
+                    1000,
                     true
             );
 
     public static DQNFactoryStdDense.Configuration CARTPOLE_NET =
-            new DQNFactoryStdDense.Configuration(3, 30, 0.001, 0.00, 0.99);
+            new DQNFactoryStdDense.Configuration(3, 16, 0.001, 0.00, 0.99);
 
     public static void main( String[] args )
     {

@@ -38,7 +38,7 @@ public class Toy {
                     0.99, //gamma
                     10.0, //errorClamp
                     0.1f, //minEpsilon
-                    1f / 2000f, //epsilonDecreaseRate
+                    2000, //epsilonDecreaseRate
                     true //doubleDQN
             );
 
@@ -54,7 +54,7 @@ public class Toy {
                     100, //errorClamp
                     10f,
                     0.1f, //minEpsilon
-                    1f / 2000f //epsilonDecreaseRate
+                    2000 //epsilonDecreaseRate
             );
 
     public static DQNFactoryStdDense.Configuration TOY_NET =
