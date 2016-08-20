@@ -2,6 +2,7 @@ package org.deeplearning4j.rl4j;
 
 
 import org.deeplearning4j.rl4j.learning.ILearning;
+import org.deeplearning4j.rl4j.learning.Learning;
 import org.deeplearning4j.rl4j.learning.async.AsyncLearning;
 import org.deeplearning4j.rl4j.learning.async.nstep.discrete.NStepQLearningDiscreteDense;
 import org.deeplearning4j.rl4j.learning.sync.qlearning.QLearning;
@@ -11,10 +12,12 @@ import org.deeplearning4j.rl4j.mdp.toy.HardDeteministicToy;
 import org.deeplearning4j.rl4j.mdp.toy.SimpleToy;
 import org.deeplearning4j.rl4j.mdp.toy.SimpleToyState;
 import org.deeplearning4j.rl4j.network.dqn.DQNFactoryStdDense;
+import org.deeplearning4j.rl4j.network.dqn.IDQN;
 import org.deeplearning4j.rl4j.space.DiscreteSpace;
 import org.deeplearning4j.rl4j.util.Constants;
 import org.deeplearning4j.rl4j.util.DataManager;
 
+import static org.deeplearning4j.rl4j.AsyncNStepCartpole.CARTPOLE_A3C;
 import static org.deeplearning4j.rl4j.Cartpole.CARTPOLE_NET;
 
 /**
@@ -30,7 +33,7 @@ public class Toy {
                     80000, //maxStep
                     10000, //expRepMaxSize
                     32, //batchSize
-                    10000, //targetDqnUpdateFreq
+                    100, //targetDqnUpdateFreq
                     0, //updateStart
                     0.99, //gamma
                     10.0, //errorClamp
@@ -40,18 +43,20 @@ public class Toy {
             );
 
     public static DQNFactoryStdDense.Configuration TOY_NET =
-            new DQNFactoryStdDense.Configuration(4, 15, 0.001, 0.01, 0.99);
+            new DQNFactoryStdDense.Configuration(4, 15, 0.01, 0.00, 0.99);
 
     public static void main( String[] args )
     {
         simpleToy();
+       // cartPoleAsync();
 
     }
 
     public static void simpleToy() {
         DataManager manager = new DataManager();
         SimpleToy mdp = new SimpleToy(20);
-        ILearning<SimpleToyState, Integer, DiscreteSpace> dql = new QLearningDiscreteDense(mdp, TOY_NET, TOY_QL, manager);
+        Learning<SimpleToyState, Integer, DiscreteSpace, IDQN> dql = new QLearningDiscreteDense(mdp, TOY_NET, TOY_QL, manager);
+        mdp.setFetchable(dql);
         dql.train();
         dql.getPolicy();
         mdp.close();
@@ -71,7 +76,8 @@ public class Toy {
         DataManager manager = new DataManager();
         //GymEnv mdp = new GymEnv("CartPole-v0",  false);
         SimpleToy mdp = new SimpleToy(20);
-        ILearning<SimpleToyState, Integer, DiscreteSpace> dql = new NStepQLearningDiscreteDense<SimpleToyState>(mdp, CARTPOLE_NET, new AsyncLearning.AsyncConfiguration(), manager);
+        NStepQLearningDiscreteDense dql = new NStepQLearningDiscreteDense<SimpleToyState>(mdp, CARTPOLE_NET, CARTPOLE_A3C, manager);
+        mdp.setFetchable(dql);
         dql.train();
         dql.getPolicy();
         mdp.close();
