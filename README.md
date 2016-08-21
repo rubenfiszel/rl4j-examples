@@ -11,6 +11,10 @@ If 0.5.1 deeplearning4j is not on maven central yet:
 
 ## Cartpole
 
+
+![Cartpole](cartpole.gif)
+
+
 ```
 mvn clean compile exec:java -Dexec.mainClass="org.deeplearning4j.rl4j.Doom"
 ```
