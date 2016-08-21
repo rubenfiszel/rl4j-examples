@@ -19,22 +19,23 @@ public class Cartpole
 
     public static QLearning.QLConfiguration CARTPOLE_QL =
             new QLearning.QLConfiguration(
-                    123,
-                    500,
-                    150000,
-                    150000,
-                    32,
-                    100,
-                    10,
-                    0.01,
-                    0.99,
-                    100.0,
-                    0.1f,
-                    1000,
+                    123, //Random seed
+                    200, //Max step By epoch
+                    150000, //Max step
+                    150000, //Max size of experience replay
+                    32, //size of batches
+                    500, //target update (hard)
+                    10,  //num step noop warmup
+                    0.01, //reward scaling
+                    0.99, //gamma
+                    1.0, //td-error clipping
+                    0.1f, //min epsilon
+                    1000, //num step for eps greedy anneal
                     true
             );
 
     public static DQNFactoryStdDense.Configuration CARTPOLE_NET =
+            //num layers, num hidden nodes, learning rate, l2 regularization
             new DQNFactoryStdDense.Configuration(3, 16, 0.001, 0.00);
 
     public static void main( String[] args )
