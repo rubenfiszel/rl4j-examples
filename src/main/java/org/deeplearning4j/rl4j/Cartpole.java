@@ -7,6 +7,7 @@ import org.deeplearning4j.rl4j.learning.sync.qlearning.discrete.QLearningDiscret
 import org.deeplearning4j.rl4j.mdp.gym.GymEnv;
 import org.deeplearning4j.rl4j.network.dqn.DQNFactoryStdDense;
 import org.deeplearning4j.rl4j.policy.DQNPolicy;
+import org.deeplearning4j.rl4j.space.DiscreteSpace;
 import org.deeplearning4j.rl4j.util.DataManager;
 
 import java.util.logging.Logger;
@@ -23,17 +24,18 @@ public class Cartpole
                     150000,
                     150000,
                     32,
+                    1000,
                     10,
-                    10,
+                    0.01,
                     0.99,
                     100.0,
-                    0.05f,
+                    0.1f,
                     1000,
                     true
             );
 
     public static DQNFactoryStdDense.Configuration CARTPOLE_NET =
-            new DQNFactoryStdDense.Configuration(3, 16, 0.001, 0.00, 0.99);
+            new DQNFactoryStdDense.Configuration(3, 16, 0.001, 0.00);
 
     public static void main( String[] args )
     {
@@ -48,8 +50,12 @@ public class Cartpole
         DataManager manager = new DataManager(true);
 
         //define the mdp from gym (name, render)
-        GymEnv mdp = new GymEnv("CartPole-v0", false, false);
+        GymEnv<Box, Integer, DiscreteSpace> mdp = new GymEnv("CartPole-v0", false, false);
 
+        mdp.reset();
+        double[] arr = mdp.step(1).getObservation().toArray();
+        System.out.println(arr[0]);
+        mdp.reset();
         //define the training
         QLearningDiscreteDense<Box> dql = new QLearningDiscreteDense(mdp, CARTPOLE_NET, CARTPOLE_QL, manager);
 

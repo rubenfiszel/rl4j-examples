@@ -24,10 +24,11 @@ public class AsyncNStepCartpole {
                     5,
                     0.99,
                     50,
+                    0.01,
                     100,
                     100.0,
                     0.1f,
-                    1f / 40000f
+                    4000
             );
 
 

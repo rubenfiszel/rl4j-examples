@@ -13,33 +13,21 @@ import org.deeplearning4j.rl4j.space.Encodable;
 import org.deeplearning4j.rl4j.space.ObservationSpace;
 import org.deeplearning4j.rl4j.util.DataManager;
 
+import static org.deeplearning4j.rl4j.Doom.DOOM_QL;
+
 /**
  * @author rubenfiszel (ruben.fiszel@epfl.ch) on 8/15/16.
  */
 public class Memory {
 
 
-    public static QLearning.QLConfiguration DOOM_QL =
-            new QLearning.QLConfiguration(
-                    123, //seed
-                    10000, //maxEpochStep
-                    1000000, //maxStep
-                    1000000, //expRepMaxSize
-                    32, //batchSize
-                    1000, //targetDqnUpdateFreq
-                    50000, //updateStart
-                    0.99, //gamma
-                    100.0, //errorClamp
-                    0.1f, //minEpsilon
-                    1f / 1000000f, //epsilonDecreaseRate
-                    true //doubleDQN
-            );
+
 
 
 
 
     public static DQNFactoryStdConv.Configuration DOOM_NET =
-            new DQNFactoryStdConv.Configuration(0.00025, 0.000, 0.99);
+            new DQNFactoryStdConv.Configuration(0.00025, 0.000);
 
     public static HistoryProcessor.Configuration DOOM_HP =
             new HistoryProcessor.Configuration(4, 100, 100, 100, 100, 0, 0, 4);

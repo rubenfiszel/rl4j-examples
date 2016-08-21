@@ -35,6 +35,7 @@ public class Toy {
                     32, //batchSize
                     100, //targetDqnUpdateFreq
                     0, //updateStart
+                    0.05,
                     0.99, //gamma
                     10.0, //errorClamp
                     0.1f, //minEpsilon
@@ -51,6 +52,7 @@ public class Toy {
                     10, //batchSize
                     0.99, //gamma
                     100,
+                    0.05,
                     100, //errorClamp
                     10f,
                     0.1f, //minEpsilon
@@ -58,12 +60,12 @@ public class Toy {
             );
 
     public static DQNFactoryStdDense.Configuration TOY_NET =
-            new DQNFactoryStdDense.Configuration(4, 15, 0.01, 0.00, 0.99);
+            new DQNFactoryStdDense.Configuration(3, 16, 0.001, 0.01);
 
     public static void main( String[] args )
     {
-        //simpleToy();
-        toyAsync();
+        simpleToy();
+        //toyAsync();
 
     }
 

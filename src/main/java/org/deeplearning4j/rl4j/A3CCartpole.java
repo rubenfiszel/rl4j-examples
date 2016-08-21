@@ -18,8 +18,7 @@ public class A3CCartpole {
             4,
             16,
             0.001,
-            0.0,
-            0.99
+            0.0
     );
     public static String OPENAI_KEY = "";
 
