@@ -24,7 +24,7 @@ public class Cartpole
                     150000,
                     150000,
                     32,
-                    1000,
+                    100,
                     10,
                     0.01,
                     0.99,
@@ -40,7 +40,7 @@ public class Cartpole
     public static void main( String[] args )
     {
         cartPole();
-        //loadCartpole();
+        loadCartpole();
 
     }
 

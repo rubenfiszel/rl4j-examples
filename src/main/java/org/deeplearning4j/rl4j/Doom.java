@@ -30,7 +30,7 @@ public class Doom {
                     0.99, //gamma
                     100.0, //errorClamp
                     0.1f, //minEpsilon
-                    1000000, //epsilonDecreaseRate
+                    100000, //epsilonDecreaseRate
                     true //doubleDQN
             );
 
