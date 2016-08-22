@@ -3,9 +3,7 @@ package org.deeplearning4j.rl4j;
 import org.deeplearning4j.rl4j.learning.HistoryProcessor;
 import org.deeplearning4j.rl4j.learning.sync.qlearning.QLearning;
 import org.deeplearning4j.rl4j.learning.sync.qlearning.discrete.QLearningDiscreteConv;
-import org.deeplearning4j.rl4j.mdp.vizdoom.Basic;
-import org.deeplearning4j.rl4j.mdp.vizdoom.DeadlyCorridor;
-import org.deeplearning4j.rl4j.mdp.vizdoom.PredictPosition;
+import org.deeplearning4j.rl4j.mdp.vizdoom.*;
 import org.deeplearning4j.rl4j.mdp.vizdoom.VizDoom;
 import org.deeplearning4j.rl4j.network.dqn.DQNFactoryStdConv;
 import org.deeplearning4j.rl4j.util.DataManager;
@@ -52,7 +50,7 @@ public class Doom {
         Compression.printMemory();
 
         DataManager manager = new DataManager(true);
-        VizDoom mdp = new DeadlyCorridor(true);
+        VizDoom mdp = new DeadlyCorridor(false);
         QLearningDiscreteConv<VizDoom.GameScreen> dql = new QLearningDiscreteConv(mdp, DOOM_NET, DOOM_HP, DOOM_QL, manager);
         dql.train();
         dql.getPolicy().save("end.model");
