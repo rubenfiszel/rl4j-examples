@@ -1,6 +1,7 @@
 package org.deeplearning4j.rl4j;
 
 import org.deeplearning4j.rl4j.gym.space.Box;
+import org.deeplearning4j.rl4j.learning.async.AsyncLearning;
 import org.deeplearning4j.rl4j.learning.async.a3c.discrete.A3CDiscreteDense;
 import org.deeplearning4j.rl4j.learning.async.nstep.discrete.NStepQLearningDiscreteDense;
 import org.deeplearning4j.rl4j.mdp.gym.GymEnv;
@@ -14,19 +15,35 @@ import static org.deeplearning4j.rl4j.Cartpole.CARTPOLE_NET;
  */
 public class A3CCartpole {
 
+    public static AsyncLearning.AsyncConfiguration CARTPOLE_A3C =
+            new AsyncLearning.AsyncConfiguration(
+                    123,
+                    200,
+                    500000,
+                    8,
+                    5,
+                    200000000,
+                    10,
+                    0.01,
+                    0.99,
+                    100.0,
+                    0.1f,
+                    9000
+            );
     private static final ActorCriticFactoryStdDense.Configuration CARTPOLE_AC = new ActorCriticFactoryStdDense.Configuration(
-            4,
+            3,
             16,
             0.001,
             0.0
     );
+
     public static String OPENAI_KEY = "";
 
 
     public static void main( String[] args )
     {
-        //A3CcartPole();
-        nstepCartPole();
+        A3CcartPole();
+        //nstepCartPole();
 
     }
 
@@ -34,7 +51,7 @@ public class A3CCartpole {
 
         DataManager manager = new DataManager(true);
         GymEnv mdp = new GymEnv("CartPole-v0", false, false);
-        A3CDiscreteDense<Box> dql = new A3CDiscreteDense<Box>(mdp, CARTPOLE_AC, AsyncNStepCartpole.CARTPOLE_A3C, manager);
+        A3CDiscreteDense<Box> dql = new A3CDiscreteDense<Box>(mdp, CARTPOLE_AC, CARTPOLE_A3C, manager);
         dql.train();
 
         mdp.close();
@@ -45,7 +62,7 @@ public class A3CCartpole {
 
         DataManager manager = new DataManager(true);
         GymEnv mdp = new GymEnv("CartPole-v0", false, false);
-        NStepQLearningDiscreteDense<Box> dql = new NStepQLearningDiscreteDense<Box>(mdp, CARTPOLE_NET, AsyncNStepCartpole.CARTPOLE_A3C, manager);
+        NStepQLearningDiscreteDense<Box> dql = new NStepQLearningDiscreteDense<Box>(mdp, CARTPOLE_NET, CARTPOLE_A3C, manager);
         dql.train();
 
         mdp.close();

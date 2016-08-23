@@ -3,7 +3,7 @@ package org.deeplearning4j.rl4j;
 import org.deeplearning4j.rl4j.learning.HistoryProcessor;
 import org.deeplearning4j.rl4j.learning.sync.qlearning.QLearning;
 import org.deeplearning4j.rl4j.learning.sync.qlearning.discrete.QLearningDiscreteConv;
-import org.deeplearning4j.rl4j.mdp.vizdoom.*;
+import org.deeplearning4j.rl4j.mdp.vizdoom.DeadlyCorridor;
 import org.deeplearning4j.rl4j.mdp.vizdoom.VizDoom;
 import org.deeplearning4j.rl4j.network.dqn.DQNFactoryStdConv;
 import org.deeplearning4j.rl4j.util.DataManager;

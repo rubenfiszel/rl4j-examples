@@ -1,30 +1,12 @@
 package org.deeplearning4j.rl4j;
 
-import lombok.Getter;
-import org.deeplearning4j.rl4j.learning.HistoryProcessor;
-import org.deeplearning4j.rl4j.learning.sync.qlearning.QLearning;
-import org.deeplearning4j.rl4j.learning.sync.qlearning.discrete.QLearningDiscreteConv;
-import org.deeplearning4j.rl4j.mdp.MDP;
-import org.deeplearning4j.rl4j.mdp.vizdoom.VizDoom;
-import org.deeplearning4j.rl4j.network.dqn.DQNFactoryStdConv;
-import org.deeplearning4j.rl4j.space.ArrayObservationSpace;
-import org.deeplearning4j.rl4j.space.DiscreteSpace;
-import org.deeplearning4j.rl4j.space.Encodable;
-import org.deeplearning4j.rl4j.space.ObservationSpace;
-import org.deeplearning4j.rl4j.util.DataManager;
-
-import static org.deeplearning4j.rl4j.Doom.DOOM_QL;
-
 /**
  * @author rubenfiszel (ruben.fiszel@epfl.ch) on 8/15/16.
  */
 public class Memory {
 
 
-
-
-
-
+/*
 
     public static DQNFactoryStdConv.Configuration DOOM_NET =
             new DQNFactoryStdConv.Configuration(0.00025, 0.000);
@@ -92,4 +74,5 @@ public class Memory {
         }
 
     }
+    */
 }

@@ -6,7 +6,6 @@ import org.deeplearning4j.rl4j.learning.sync.qlearning.discrete.QLearningDiscret
 import org.deeplearning4j.rl4j.mdp.toy.SimpleToy;
 import org.deeplearning4j.rl4j.mdp.toy.SimpleToyState;
 import org.deeplearning4j.rl4j.network.dqn.IDQN;
-import org.deeplearning4j.rl4j.util.Constants;
 import org.deeplearning4j.rl4j.util.DataManager;
 
 import static org.deeplearning4j.rl4j.Toy.TOY_NET;

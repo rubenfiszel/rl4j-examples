@@ -14,11 +14,7 @@ import org.deeplearning4j.rl4j.mdp.toy.SimpleToyState;
 import org.deeplearning4j.rl4j.network.dqn.DQNFactoryStdDense;
 import org.deeplearning4j.rl4j.network.dqn.IDQN;
 import org.deeplearning4j.rl4j.space.DiscreteSpace;
-import org.deeplearning4j.rl4j.util.Constants;
 import org.deeplearning4j.rl4j.util.DataManager;
-
-import static org.deeplearning4j.rl4j.AsyncNStepCartpole.CARTPOLE_A3C;
-import static org.deeplearning4j.rl4j.Cartpole.CARTPOLE_NET;
 
 /**
  * @author rubenfiszel (ruben.fiszel@epfl.ch) on 8/11/16.
@@ -49,12 +45,12 @@ public class Toy {
                     100000, //maxEpochStep
                     80000, //maxStep
                     8,
-                    10, //batchSize
-                    0.99, //gamma
+                    5,
                     100,
-                    0.05,
-                    100, //errorClamp
-                    10f,
+                    0,
+                    0.1,
+                    0.99,
+                    10.0, //errorClamp
                     0.1f, //minEpsilon
                     2000 //epsilonDecreaseRate
             );
@@ -62,10 +58,10 @@ public class Toy {
     public static DQNFactoryStdDense.Configuration TOY_NET =
             new DQNFactoryStdDense.Configuration(3, 16, 0.001, 0.01);
 
-    public static void main( String[] args )
+    public static void main(String[] args )
     {
-        simpleToy();
-        //toyAsync();
+        //simpleToy();
+        toyAsync();
 
     }
 
@@ -93,6 +89,7 @@ public class Toy {
         DataManager manager = new DataManager();
         //GymEnv mdp = new GymEnv("CartPole-v0",  false);
         SimpleToy mdp = new SimpleToy(20);
+        System.out.println("RF: " + TOY_ASYNC_QL.getRewardFactor());
         NStepQLearningDiscreteDense dql = new NStepQLearningDiscreteDense<SimpleToyState>(mdp, TOY_NET, TOY_ASYNC_QL, manager);
         mdp.setFetchable(dql);
         dql.train();
