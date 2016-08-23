@@ -2,6 +2,7 @@ package org.deeplearning4j.rl4j;
 
 import org.deeplearning4j.rl4j.gym.space.Box;
 import org.deeplearning4j.rl4j.learning.async.AsyncLearning;
+import org.deeplearning4j.rl4j.learning.async.a3c.discrete.A3CDiscrete;
 import org.deeplearning4j.rl4j.learning.async.a3c.discrete.A3CDiscreteDense;
 import org.deeplearning4j.rl4j.learning.async.nstep.discrete.NStepQLearningDiscreteDense;
 import org.deeplearning4j.rl4j.mdp.gym.GymEnv;
@@ -15,20 +16,17 @@ import static org.deeplearning4j.rl4j.Cartpole.CARTPOLE_NET;
  */
 public class A3CCartpole {
 
-    public static AsyncLearning.AsyncConfiguration CARTPOLE_A3C =
-            new AsyncLearning.AsyncConfiguration(
+    public static A3CDiscrete.A3CConfiguration CARTPOLE_A3C =
+            new A3CDiscrete.A3CConfiguration(
                     123,
                     200,
                     500000,
                     8,
                     5,
-                    -1,
                     10,
                     0.01,
                     0.99,
-                    100.0,
-                    0.1f,
-                    9000
+                    100.0
             );
 
     private static final ActorCriticFactoryStdDense.Configuration CARTPOLE_AC = new ActorCriticFactoryStdDense.Configuration(

@@ -4,6 +4,7 @@ package org.deeplearning4j.rl4j;
 import org.deeplearning4j.rl4j.learning.ILearning;
 import org.deeplearning4j.rl4j.learning.Learning;
 import org.deeplearning4j.rl4j.learning.async.AsyncLearning;
+import org.deeplearning4j.rl4j.learning.async.nstep.discrete.NStepQLearningDiscrete;
 import org.deeplearning4j.rl4j.learning.async.nstep.discrete.NStepQLearningDiscreteDense;
 import org.deeplearning4j.rl4j.learning.sync.qlearning.QLearning;
 import org.deeplearning4j.rl4j.learning.sync.qlearning.discrete.QLearningDiscreteDense;
@@ -39,8 +40,8 @@ public class Toy {
                     true //doubleDQN
             );
 
-    public static AsyncLearning.AsyncConfiguration TOY_ASYNC_QL =
-            new AsyncLearning.AsyncConfiguration(
+    public static NStepQLearningDiscrete.AsyncNStepQLConfiguration TOY_ASYNC_QL =
+            new NStepQLearningDiscrete.AsyncNStepQLConfiguration(
                     123, //seed
                     100000, //maxEpochStep
                     80000, //maxStep

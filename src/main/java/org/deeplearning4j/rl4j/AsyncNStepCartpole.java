@@ -2,6 +2,7 @@ package org.deeplearning4j.rl4j;
 
 import org.deeplearning4j.rl4j.gym.space.Box;
 import org.deeplearning4j.rl4j.learning.async.AsyncLearning;
+import org.deeplearning4j.rl4j.learning.async.nstep.discrete.NStepQLearningDiscrete;
 import org.deeplearning4j.rl4j.learning.async.nstep.discrete.NStepQLearningDiscreteDense;
 import org.deeplearning4j.rl4j.mdp.gym.GymEnv;
 import org.deeplearning4j.rl4j.network.dqn.DQNFactoryStdDense;
@@ -14,8 +15,8 @@ public class AsyncNStepCartpole {
 
     public static String OPENAI_KEY = "";
 
-    public static AsyncLearning.AsyncConfiguration CARTPOLE_NSTEP =
-            new AsyncLearning.AsyncConfiguration(
+    public static NStepQLearningDiscrete.AsyncNStepQLConfiguration CARTPOLE_NSTEP =
+            new NStepQLearningDiscrete.AsyncNStepQLConfiguration(
                     123,
                     200,
                     500000,
