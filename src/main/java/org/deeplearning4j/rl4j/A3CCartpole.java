@@ -22,7 +22,7 @@ public class A3CCartpole {
                     500000,
                     8,
                     5,
-                    200000000,
+                    -1,
                     10,
                     0.01,
                     0.99,
@@ -30,6 +30,7 @@ public class A3CCartpole {
                     0.1f,
                     9000
             );
+
     private static final ActorCriticFactoryStdDense.Configuration CARTPOLE_AC = new ActorCriticFactoryStdDense.Configuration(
             3,
             16,
@@ -37,13 +38,10 @@ public class A3CCartpole {
             0.0
     );
 
-    public static String OPENAI_KEY = "";
-
 
     public static void main( String[] args )
     {
         A3CcartPole();
-        //nstepCartPole();
 
     }
 
@@ -58,16 +56,6 @@ public class A3CCartpole {
 
     }
 
-    public static void nstepCartPole() {
-
-        DataManager manager = new DataManager(true);
-        GymEnv mdp = new GymEnv("CartPole-v0", false, false);
-        NStepQLearningDiscreteDense<Box> dql = new NStepQLearningDiscreteDense<Box>(mdp, CARTPOLE_NET, CARTPOLE_A3C, manager);
-        dql.train();
-
-        mdp.close();
-
-    }
 
 
 }
