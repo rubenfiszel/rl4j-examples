@@ -16,7 +16,7 @@ import static org.deeplearning4j.rl4j.Cartpole.CARTPOLE_NET;
  * main example for A3C on cartpole (does not work/converge
  * correctly) but it is probably not due to a lack of good hyper parameters
  * but to a faulty implementation of A3C :<
- * 
+ *
  */
 public class A3CCartpole {
 
