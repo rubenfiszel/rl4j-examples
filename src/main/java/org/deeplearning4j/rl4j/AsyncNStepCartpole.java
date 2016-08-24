@@ -2,8 +2,9 @@ package org.deeplearning4j.rl4j;
 
 import org.deeplearning4j.rl4j.gym.space.Box;
 import org.deeplearning4j.rl4j.learning.async.AsyncLearning;
-import org.deeplearning4j.rl4j.learning.async.nstep.discrete.NStepQLearningDiscrete;
-import org.deeplearning4j.rl4j.learning.async.nstep.discrete.NStepQLearningDiscreteDense;
+import org.deeplearning4j.rl4j.learning.async.nstep.discrete.AsyncNStepQLearningDiscrete;
+import org.deeplearning4j.rl4j.learning.async.nstep.discrete.AsyncNStepQLearningDiscreteDense;
+
 import org.deeplearning4j.rl4j.mdp.gym.GymEnv;
 import org.deeplearning4j.rl4j.network.dqn.DQNFactoryStdDense;
 import org.deeplearning4j.rl4j.util.DataManager;
@@ -13,16 +14,15 @@ import org.deeplearning4j.rl4j.util.DataManager;
  */
 public class AsyncNStepCartpole {
 
-    public static String OPENAI_KEY = "";
 
-    public static NStepQLearningDiscrete.AsyncNStepQLConfiguration CARTPOLE_NSTEP =
-            new NStepQLearningDiscrete.AsyncNStepQLConfiguration(
+    public static AsyncNStepQLearningDiscrete.AsyncNStepQLConfiguration CARTPOLE_NSTEP =
+            new AsyncNStepQLearningDiscrete.AsyncNStepQLConfiguration(
                     123,
                     200,
-                    500000,
-                    8,
+                    300000,
+                    16,
                     5,
-                    2000,
+                    100,
                     10,
                     0.01,
                     0.99,
@@ -31,14 +31,15 @@ public class AsyncNStepCartpole {
                     9000
             );
 
-    public static DQNFactoryStdDense.Configuration CARTPOLE_NET2 =
+    public static DQNFactoryStdDense.Configuration CARTPOLE_NET_NSTEP =
             //num layers, num hidden nodes, learning rate, l2 regularization
-            new DQNFactoryStdDense.Configuration(3, 16, 0.001, 0.00);
+            new DQNFactoryStdDense.Configuration(3, 16, 0.0005, 0.001);
+
     public static void main( String[] args )
     {
         cartPole();
-
     }
+
 
     public static void cartPole() {
 
@@ -49,7 +50,7 @@ public class AsyncNStepCartpole {
         GymEnv mdp = new GymEnv("CartPole-v0", false, false);
 
         //define the training
-        NStepQLearningDiscreteDense<Box> dql = new NStepQLearningDiscreteDense<Box>(mdp, CARTPOLE_NET2, CARTPOLE_NSTEP, manager);
+        AsyncNStepQLearningDiscreteDense<Box> dql = new AsyncNStepQLearningDiscreteDense<Box>(mdp, CARTPOLE_NET_NSTEP, CARTPOLE_NSTEP, manager);
 
         //train
         dql.train();

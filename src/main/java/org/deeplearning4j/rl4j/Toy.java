@@ -3,9 +3,10 @@ package org.deeplearning4j.rl4j;
 
 import org.deeplearning4j.rl4j.learning.ILearning;
 import org.deeplearning4j.rl4j.learning.Learning;
-import org.deeplearning4j.rl4j.learning.async.AsyncLearning;
-import org.deeplearning4j.rl4j.learning.async.nstep.discrete.NStepQLearningDiscrete;
-import org.deeplearning4j.rl4j.learning.async.nstep.discrete.NStepQLearningDiscreteDense;
+
+import org.deeplearning4j.rl4j.learning.async.nstep.discrete.AsyncNStepQLearningDiscrete;
+import org.deeplearning4j.rl4j.learning.async.nstep.discrete.AsyncNStepQLearningDiscreteDense;
+
 import org.deeplearning4j.rl4j.learning.sync.qlearning.QLearning;
 import org.deeplearning4j.rl4j.learning.sync.qlearning.discrete.QLearningDiscreteDense;
 import org.deeplearning4j.rl4j.mdp.MDP;
@@ -40,8 +41,8 @@ public class Toy {
                     true //doubleDQN
             );
 
-    public static NStepQLearningDiscrete.AsyncNStepQLConfiguration TOY_ASYNC_QL =
-            new NStepQLearningDiscrete.AsyncNStepQLConfiguration(
+    public static AsyncNStepQLearningDiscrete.AsyncNStepQLConfiguration TOY_ASYNC_QL =
+            new AsyncNStepQLearningDiscrete.AsyncNStepQLConfiguration(
                     123, //seed
                     100000, //maxEpochStep
                     80000, //maxStep
@@ -61,8 +62,8 @@ public class Toy {
 
     public static void main(String[] args )
     {
-        //simpleToy();
-        toyAsync();
+        simpleToy();
+        //toyAsyncNstep();
 
     }
 
@@ -86,12 +87,12 @@ public class Toy {
     }
 
 
-    public static void toyAsync() {
+    public static void toyAsyncNstep() {
         DataManager manager = new DataManager();
         //GymEnv mdp = new GymEnv("CartPole-v0",  false);
         SimpleToy mdp = new SimpleToy(20);
         System.out.println("RF: " + TOY_ASYNC_QL.getRewardFactor());
-        NStepQLearningDiscreteDense dql = new NStepQLearningDiscreteDense<SimpleToyState>(mdp, TOY_NET, TOY_ASYNC_QL, manager);
+        AsyncNStepQLearningDiscreteDense dql = new AsyncNStepQLearningDiscreteDense<SimpleToyState>(mdp, TOY_NET, TOY_ASYNC_QL, manager);
         mdp.setFetchable(dql);
         dql.train();
         dql.getPolicy();
