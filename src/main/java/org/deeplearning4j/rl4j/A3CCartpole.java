@@ -12,27 +12,34 @@ import static org.deeplearning4j.rl4j.Cartpole.CARTPOLE_NET;
 
 /**
  * @author rubenfiszel (ruben.fiszel@epfl.ch) on 8/18/16.
+ *
+ * main example for A3C on cartpole (does not work/converge
+ * correctly) but it is probably not due to a lack of good hyper parameters
+ * but to a faulty implementation of A3C :<
+ * 
  */
 public class A3CCartpole {
 
     private static A3CDiscrete.A3CConfiguration CARTPOLE_A3C =
             new A3CDiscrete.A3CConfiguration(
-                    123,
-                    200,
-                    500000,
-                    8,
-                    5,
-                    10,
-                    0.01,
-                    0.99,
-                    100.0
+                    123,            //Random seed
+                    200,            //Max step By epoch
+                    500000,         //Max step
+                    8,              //Number of threads
+                    5,              //t_max
+                    10,             //num step noop warmup
+                    0.01,           //reward scaling
+                    0.99,           //gamma
+                    100.0           //td-error clipping
             );
 
+
+
     private static final ActorCriticFactorySeparateStdDense.Configuration CARTPOLE_NET_A3C = new ActorCriticFactorySeparateStdDense.Configuration(
-            3,
-            16,
-            0.0001,
-            0.001
+            3,                      //number of layers
+            16,                     //number of hidden nodes
+            0.0001,                 //learning rate
+            0.001                   //l2 regularization
     );
 
 
@@ -43,11 +50,19 @@ public class A3CCartpole {
 
     public static void A3CcartPole() {
 
+        //record the training data in rl4j-data in a new folder
         DataManager manager = new DataManager(true);
+
+        //define the mdp from gym (name, render)
         GymEnv mdp = new GymEnv("CartPole-v0", false, false);
+
+        //define the training
         A3CDiscreteDense<Box> dql = new A3CDiscreteDense<Box>(mdp, CARTPOLE_NET_A3C, CARTPOLE_A3C, manager);
+
+        //start the training
         dql.train();
 
+        //close the mdp (http connection)
         mdp.close();
 
     }

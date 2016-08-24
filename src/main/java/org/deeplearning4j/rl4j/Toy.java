@@ -20,45 +20,54 @@ import org.deeplearning4j.rl4j.util.DataManager;
 
 /**
  * @author rubenfiszel (ruben.fiszel@epfl.ch) on 8/11/16.
+ *
+ * main example for toy DQN
+ *
  */
 public class Toy {
 
 
     public static QLearning.QLConfiguration TOY_QL =
             new QLearning.QLConfiguration(
-                    123, //seed
-                    100000, //maxEpochStep
-                    80000, //maxStep
-                    10000, //expRepMaxSize
-                    32, //batchSize
-                    100, //targetDqnUpdateFreq
-                    0, //updateStart
-                    0.05,
-                    0.99, //gamma
-                    10.0, //errorClamp
-                    0.1f, //minEpsilon
-                    2000, //epsilonDecreaseRate
-                    true //doubleDQN
+                    123,   //Random seed
+                    100000,//Max step By epoch
+                    80000, //Max step
+                    10000, //Max size of experience replay
+                    32,    //size of batches
+                    100,   //target update (hard)
+                    0,     //num step noop warmup
+                    0.05,  //reward scaling
+                    0.99,  //gamma
+                    10.0,  //td-error clipping
+                    0.1f,  //min epsilon
+                    2000,  //num step for eps greedy anneal
+                    true   //double DQN
             );
+
 
     public static AsyncNStepQLearningDiscrete.AsyncNStepQLConfiguration TOY_ASYNC_QL =
             new AsyncNStepQLearningDiscrete.AsyncNStepQLConfiguration(
-                    123, //seed
-                    100000, //maxEpochStep
-                    80000, //maxStep
-                    8,
-                    5,
-                    100,
-                    0,
-                    0.1,
-                    0.99,
-                    10.0, //errorClamp
-                    0.1f, //minEpsilon
-                    2000 //epsilonDecreaseRate
+                    123,        //Random seed
+                    100000,     //Max step By epoch
+                    80000,      //Max step
+                    8,          //Number of threads
+                    5,          //t_max
+                    100,        //target update (hard)
+                    0,          //num step noop warmup
+                    0.1,        //reward scaling
+                    0.99,       //gamma
+                    10.0,       //td-error clipping
+                    0.1f,       //min epsilon
+                    2000        //num step for eps greedy anneal
             );
 
     public static DQNFactoryStdDense.Configuration TOY_NET =
-            new DQNFactoryStdDense.Configuration(3, 16, 0.001, 0.01);
+            new DQNFactoryStdDense.Configuration(
+                    3,        //number of layers
+                    16,       //number of hidden nodes
+                    0.001,    //learning rate
+                    0.01      //l2 regularization
+            );
 
     public static void main(String[] args )
     {
@@ -68,35 +77,68 @@ public class Toy {
     }
 
     public static void simpleToy() {
+
+        //record the training data in rl4j-data in a new folder
         DataManager manager = new DataManager();
+
+        //define the mdp from toy (toy length)
         SimpleToy mdp = new SimpleToy(20);
+
+        //define the training method
         Learning<SimpleToyState, Integer, DiscreteSpace, IDQN> dql = new QLearningDiscreteDense<SimpleToyState>(mdp, TOY_NET, TOY_QL, manager);
+
+        //enable some logging for debug purposes on toy mdp
         mdp.setFetchable(dql);
+
+        //start the training
         dql.train();
-        dql.getPolicy();
+
+        //useless on toy but good practice!
         mdp.close();
+
     }
 
     public static void hardToy() {
+
+        //record the training data in rl4j-data in a new folder
         DataManager manager = new DataManager();
+
+        //define the mdp from toy (toy length)
         MDP mdp = new HardDeteministicToy();
+
+        //define the training
         ILearning<SimpleToyState, Integer, DiscreteSpace> dql = new QLearningDiscreteDense(mdp, TOY_NET, TOY_QL, manager);
+
+        //start the training
         dql.train();
-        dql.getPolicy();
+
+        //useless on toy but good practice!
         mdp.close();
+
+
     }
 
 
     public static void toyAsyncNstep() {
+
+        //record the training data in rl4j-data in a new folder
         DataManager manager = new DataManager();
-        //GymEnv mdp = new GymEnv("CartPole-v0",  false);
+
+        //define the mdp
         SimpleToy mdp = new SimpleToy(20);
-        System.out.println("RF: " + TOY_ASYNC_QL.getRewardFactor());
+
+        //define the training
         AsyncNStepQLearningDiscreteDense dql = new AsyncNStepQLearningDiscreteDense<SimpleToyState>(mdp, TOY_NET, TOY_ASYNC_QL, manager);
+
+        //enable some logging for debug purposes on toy mdp
         mdp.setFetchable(dql);
+
+        //start the training
         dql.train();
-        dql.getPolicy();
+
+        //useless on toy but good practice!
         mdp.close();
+
     }
 
 }

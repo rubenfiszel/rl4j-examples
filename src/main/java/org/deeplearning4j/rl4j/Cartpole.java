@@ -13,50 +13,55 @@ import org.deeplearning4j.rl4j.util.DataManager;
 import java.util.logging.Logger;
 
 
+/**
+ * @author rubenfiszel (ruben.fiszel@epfl.ch) on 8/11/16.
+ *
+ * Main example for Cartpole DQN
+ *
+ * **/
 public class Cartpole
 {
     public static String OPENAI_KEY = "";
 
     public static QLearning.QLConfiguration CARTPOLE_QL =
             new QLearning.QLConfiguration(
-                    123, //Random seed
-                    200, //Max step By epoch
+                    123,    //Random seed
+                    200,    //Max step By epoch
                     150000, //Max step
                     150000, //Max size of experience replay
-                    32, //size of batches
-                    500, //target update (hard)
-                    10,  //num step noop warmup
-                    0.01, //reward scaling
-                    0.99, //gamma
-                    1.0, //td-error clipping
-                    0.1f, //min epsilon
-                    1000, //num step for eps greedy anneal
-                    true
+                    32,     //size of batches
+                    500,    //target update (hard)
+                    10,     //num step noop warmup
+                    0.01,   //reward scaling
+                    0.99,   //gamma
+                    1.0,    //td-error clipping
+                    0.1f,   //min epsilon
+                    1000,   //num step for eps greedy anneal
+                    true    //double DQN
             );
 
     public static DQNFactoryStdDense.Configuration CARTPOLE_NET =
-            //num layers, num hidden nodes, learning rate, l2 regularization
-            new DQNFactoryStdDense.Configuration(3, 16, 0.001, 0.00);
+            new DQNFactoryStdDense.Configuration(
+                    3,         //number of layers
+                    16,        //number of hidden nodes
+                    0.001,     //learning rate
+                    0.00       //l2 regularization
+            );
 
     public static void main( String[] args )
     {
         cartPole();
         loadCartpole();
-
     }
 
     public static void cartPole() {
 
-        //true means record this in rl4j-data in a new folder
+        //record the training data in rl4j-data in a new folder (save)
         DataManager manager = new DataManager(true);
 
         //define the mdp from gym (name, render)
         GymEnv<Box, Integer, DiscreteSpace> mdp = new GymEnv("CartPole-v0", false, false);
 
-        mdp.reset();
-        double[] arr = mdp.step(1).getObservation().toArray();
-        System.out.println(arr[0]);
-        mdp.reset();
         //define the training
         QLearningDiscreteDense<Box> dql = new QLearningDiscreteDense(mdp, CARTPOLE_NET, CARTPOLE_QL, manager);
 
@@ -79,11 +84,12 @@ public class Cartpole
     public static void loadCartpole(){
 
         //showcase serialization by using the trained agent on a new similar mdp (but render it this time)
+
+        //define the mdp from gym (name, render)
         GymEnv mdp2 = new GymEnv("CartPole-v0", true, false);
 
         //load the previous agent
         DQNPolicy<Box> pol2 = DQNPolicy.load("/tmp/pol1");
-
 
         //evaluate the agent
         double rewards = 0;

@@ -11,29 +11,36 @@ import org.deeplearning4j.rl4j.util.DataManager;
 
 /**
  * @author rubenfiszel (ruben.fiszel@epfl.ch) on 8/18/16.
+ *
+ * main example for Async NStep QLearning on cartpole
  */
 public class AsyncNStepCartpole {
 
 
     public static AsyncNStepQLearningDiscrete.AsyncNStepQLConfiguration CARTPOLE_NSTEP =
             new AsyncNStepQLearningDiscrete.AsyncNStepQLConfiguration(
-                    123,
-                    200,
-                    300000,
-                    16,
-                    5,
-                    100,
-                    10,
-                    0.01,
-                    0.99,
-                    100.0,
-                    0.1f,
-                    9000
+                    123,     //Random seed
+                    200,     //Max step By epoch
+                    300000,  //Max step
+                    16,      //Number of threads
+                    5,       //t_max
+                    100,     //target update (hard)
+                    10,      //num step noop warmup
+                    0.01,    //reward scaling
+                    0.99,    //gamma
+                    100.0,   //td-error clipping
+                    0.1f,    //min epsilon
+                    9000     //num step for eps greedy anneal
             );
 
     public static DQNFactoryStdDense.Configuration CARTPOLE_NET_NSTEP =
-            //num layers, num hidden nodes, learning rate, l2 regularization
-            new DQNFactoryStdDense.Configuration(3, 16, 0.0005, 0.001);
+            new DQNFactoryStdDense.Configuration(
+                    3,         //number of layers
+                    16,        //number of hidden nodes
+                    0.0005,    //learning rate
+                    0.001      //l2 regularization
+            );
+
 
     public static void main( String[] args )
     {
@@ -43,7 +50,7 @@ public class AsyncNStepCartpole {
 
     public static void cartPole() {
 
-        //true means record this in rl4j-data in a new folder
+        //record the training data in rl4j-data in a new folder
         DataManager manager = new DataManager(true);
 
         //define the mdp from gym (name, render)
@@ -55,6 +62,7 @@ public class AsyncNStepCartpole {
         //train
         dql.train();
 
+        //close the mdp (close connection)
         mdp.close();
 
 
