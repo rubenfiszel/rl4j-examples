@@ -13,9 +13,7 @@ import static org.deeplearning4j.rl4j.Cartpole.CARTPOLE_NET;
 /**
  * @author rubenfiszel (ruben.fiszel@epfl.ch) on 8/18/16.
  *
- * main example for A3C on cartpole (does not work/converge
- * correctly) but it is probably not due to a lack of good hyper parameters
- * but to a faulty implementation of A3C :<
+ * main example for A3C on cartpole
  *
  */
 public class A3CCartpole {
@@ -25,12 +23,12 @@ public class A3CCartpole {
                     123,            //Random seed
                     200,            //Max step By epoch
                     500000,         //Max step
-                    8,              //Number of threads
+                    16,              //Number of threads
                     5,              //t_max
                     10,             //num step noop warmup
                     0.01,           //reward scaling
                     0.99,           //gamma
-                    100.0           //td-error clipping
+                    10.0           //td-error clipping
             );
 
 
@@ -38,8 +36,8 @@ public class A3CCartpole {
     private static final ActorCriticFactorySeparateStdDense.Configuration CARTPOLE_NET_A3C = new ActorCriticFactorySeparateStdDense.Configuration(
             3,                      //number of layers
             16,                     //number of hidden nodes
-            0.0001,                 //learning rate
-            0.001                   //l2 regularization
+            0.001,                 //learning rate
+            0.000                   //l2 regularization
     );
 
 

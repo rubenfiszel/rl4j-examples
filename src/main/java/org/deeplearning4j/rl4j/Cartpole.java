@@ -21,7 +21,6 @@ import java.util.logging.Logger;
  * **/
 public class Cartpole
 {
-    public static String OPENAI_KEY = "";
 
     public static QLearning.QLConfiguration CARTPOLE_QL =
             new QLearning.QLConfiguration(
